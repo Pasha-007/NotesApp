@@ -76,4 +76,8 @@ dependencies {
 
     // Fragment KTX
     implementation("androidx.fragment:fragment-ktx:1.8.5")
+
+    // Recycler View
+    implementation ("androidx.recyclerview:recyclerview:1.4.0")
+    implementation ("androidx.recyclerview:recyclerview-selection:1.2.0")
 }

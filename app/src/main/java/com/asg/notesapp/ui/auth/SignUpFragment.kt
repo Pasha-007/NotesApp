@@ -34,7 +34,7 @@ class SignUpFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        (requireActivity() as MainActivity).hideActionBar()
+        (requireActivity() as MainActivity)
         setupClickListeners()
         observeAuthState()
     }
