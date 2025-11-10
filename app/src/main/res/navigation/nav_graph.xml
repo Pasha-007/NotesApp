@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/signInFragment">
+
+    <!-- Auth Flow -->
+    <fragment
+        android:id="@+id/signInFragment"
+        android:name="com.asg.notesapp.ui.auth.SignInFragment"
+        android:label="Sign In">
+        <action
+            android:id="@+id/action_signIn_to_signUp"
+            app:destination="@id/signUpFragment" />
+        <action
+            android:id="@+id/action_signIn_to_forgotPassword"
+            app:destination="@id/forgotPasswordFragment" />
+        <action
+            android:id="@+id/action_signIn_to_notesList"
+            app:destination="@id/notesListFragment"
+            app:popUpTo="@id/signInFragment"
+            app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_signIn_to_home"
+            app:destination="@id/homeFragment"
+            app:popUpTo="@id/signInFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/signUpFragment"
+        android:name="com.asg.notesapp.ui.auth.SignUpFragment"
+        android:label="Sign Up">
+        <action
+            android:id="@+id/action_signUp_to_signIn"
+            app:destination="@id/signInFragment" />
+        <action
+            android:id="@+id/action_signUp_to_notesList"
+            app:destination="@id/notesListFragment"
+            app:popUpTo="@id/signUpFragment"
+            app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_signUp_to_home"
+            app:destination="@id/homeFragment"
+            app:popUpTo="@id/signUpFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/forgotPasswordFragment"
+        android:name="com.asg.notesapp.ui.auth.ForgotPasswordFragment"
+        android:label="Forgot Password">
+        <action
+            android:id="@+id/action_forgotPassword_to_signIn"
+            app:destination="@id/signInFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.asg.notesapp.ui.home.HomeFragment"
+        android:label="Home">
+    </fragment>
+
+    <!-- Notes Flow -->
+    <fragment
+        android:id="@+id/notesListFragment"
+        android:name="com.asg.notesapp.ui.notes.NotesListFragment"
+        android:label="Notes">
+        <action
+            android:id="@+id/action_notesList_to_createNote"
+            app:destination="@id/createNoteFragment" />
+        <action
+            android:id="@+id/action_notesList_to_viewNote"
+            app:destination="@id/viewNoteFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/createNoteFragment"
+        android:name="com.asg.notesapp.ui.notes.CreateNoteFragment"
+        android:label="Create Note">
+        <action
+            android:id="@+id/action_createNote_to_notesList"
+            app:destination="@id/notesListFragment"
+            app:popUpTo="@id/notesListFragment"
+            app:popUpToInclusive="false" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/viewNoteFragment"
+        android:name="com.asg.notesapp.ui.notes.ViewNoteFragment"
+        android:label="View Note">
+        <argument
+            android:name="noteId"
+            app:argType="integer" />
+        <action
+            android:id="@+id/action_viewNote_to_editNote"
+            app:destination="@id/editNoteFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/editNoteFragment"
+        android:name="com.asg.notesapp.ui.notes.EditNoteFragment"
+        android:label="Edit Note">
+        <argument
+            android:name="noteId"
+            app:argType="integer" />
+        <action
+            android:id="@+id/action_editNote_to_viewNote"
+            app:destination="@id/viewNoteFragment"
+            app:popUpTo="@id/viewNoteFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
+
+</navigation>

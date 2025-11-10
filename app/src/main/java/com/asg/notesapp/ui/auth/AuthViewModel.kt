@@ -5,6 +5,7 @@ import androidx.lifecycle.viewModelScope
 import com.asg.notesapp.data.model.User
 import com.asg.notesapp.data.repository.AuthRepository
 import com.asg.notesapp.util.UiState
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -16,6 +17,9 @@ class AuthViewModel(
 
     private val _authState = MutableStateFlow<UiState<User>>(UiState.Idle)
     val authState: StateFlow<UiState<User>> = _authState.asStateFlow()
+
+    private val _passwordResetState = MutableStateFlow<UiState<String>>(UiState.Idle)
+    val passwordResetState: StateFlow<UiState<String>> = _passwordResetState.asStateFlow()
 
     fun signUp(name: String, email: String, password: String, confirmPassword: String) {
         viewModelScope.launch {
@@ -66,7 +70,30 @@ class AuthViewModel(
         }
     }
 
+    fun resetPassword(email: String) {
+        viewModelScope.launch {
+            _passwordResetState.value = UiState.Loading
+
+            if (email.isBlank() || !android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+                _passwordResetState.value = UiState.Error("Please enter a valid email address")
+                return@launch
+            }
+
+            try {
+                // Your reset password implementation
+                delay(1000) // Simulate API call
+                _passwordResetState.value = UiState.Success("Password reset email sent successfully")
+            } catch (e: Exception) {
+                _passwordResetState.value = UiState.Error(e.message ?: "Failed to send reset email")
+            }
+        }
+    }
+
     fun resetAuthState() {
         _authState.value = UiState.Idle
+    }
+
+    fun resetPasswordState() {
+        _passwordResetState.value = UiState.Idle
     }
 }

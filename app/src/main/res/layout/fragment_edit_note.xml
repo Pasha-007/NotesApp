@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#252525">
+
+    <!-- Top Bar -->
+    <ImageView
+        android:id="@+id/iconBack"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:src="@drawable/ic_back"
+        android:background="@drawable/icon_background"
+        android:padding="12dp"
+        android:layout_margin="24dp"
+        app:tint="#FFFFFF"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <ImageView
+        android:id="@+id/iconVisibility"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:src="@drawable/ic_visibility"
+        android:background="@drawable/icon_background"
+        android:padding="12dp"
+        android:layout_marginEnd="8dp"
+        app:tint="#FFFFFF"
+        app:layout_constraintTop_toTopOf="@id/iconBack"
+        app:layout_constraintBottom_toBottomOf="@id/iconBack"
+        app:layout_constraintEnd_toStartOf="@id/iconSave" />
+
+    <ImageView
+        android:id="@+id/iconSave"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:src="@drawable/ic_save"
+        android:background="@drawable/icon_background"
+        android:padding="12dp"
+        android:layout_marginEnd="24dp"
+        app:tint="#FFFFFF"
+        app:layout_constraintTop_toTopOf="@id/iconBack"
+        app:layout_constraintBottom_toBottomOf="@id/iconBack"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <!-- Title Input -->
+    <EditText
+        android:id="@+id/editTextTitle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="Title"
+        android:textColorHint="#606060"
+        android:textColor="#FFFFFF"
+        android:textSize="28sp"
+        android:textStyle="bold"
+        android:background="@android:color/transparent"
+        android:paddingStart="24dp"
+        android:paddingEnd="24dp"
+        android:paddingTop="16dp"
+        android:layout_marginTop="16dp"
+        android:inputType="textCapSentences"
+        app:layout_constraintTop_toBottomOf="@id/iconBack"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <!-- Content Input -->
+    <EditText
+        android:id="@+id/editTextContent"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:hint="Type something..."
+        android:textColorHint="#606060"
+        android:textColor="#CCCCCC"
+        android:textSize="16sp"
+        android:background="@android:color/transparent"
+        android:paddingStart="24dp"
+        android:paddingEnd="24dp"
+        android:paddingTop="16dp"
+        android:paddingBottom="24dp"
+        android:gravity="top"
+        android:inputType="textMultiLine|textCapSentences"
+        android:scrollbars="vertical"
+        app:layout_constraintTop_toBottomOf="@id/editTextTitle"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

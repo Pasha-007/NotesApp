@@ -1,0 +1,27 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="200dp"
+    android:height="200dp"
+    android:viewportWidth="200"
+    android:viewportHeight="200">
+
+    <!-- Notepad background -->
+    <path
+        android:fillColor="#3B3B3B"
+        android:pathData="M50,40 L150,40 L150,160 L50,160 Z"/>
+
+    <!-- Notepad lines -->
+    <path
+        android:strokeColor="#606060"
+        android:strokeWidth="1"
+        android:pathData="M60,60 L140,60 M60,75 L140,75 M60,90 L140,90 M60,105 L140,105 M60,120 L140,120 M60,135 L140,135"/>
+
+    <!-- Pencil -->
+    <path
+        android:fillColor="#4FB6B2"
+        android:pathData="M130,100 L145,115 L140,120 L125,105 Z"/>
+
+    <path
+        android:fillColor="#606060"
+        android:pathData="M145,115 L150,120 L145,125 L140,120 Z"/>
+
+</vector>
