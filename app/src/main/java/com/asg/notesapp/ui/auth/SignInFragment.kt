@@ -8,6 +8,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import com.asg.notesapp.MainActivity
 import com.asg.notesapp.R
 import com.asg.notesapp.databinding.FragmentSignInBinding
 import com.asg.notesapp.util.UiState
@@ -31,6 +32,7 @@ class SignInFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        (requireActivity() as MainActivity).hideActionBar()
         setupClickListeners()
         observeAuthState()
     }

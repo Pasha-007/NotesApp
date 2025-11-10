@@ -23,6 +23,18 @@ class MainActivity : AppCompatActivity() {
         val navController = navHostFragment.navController
 
         setupActionBarWithNavController(navController)
+        supportActionBar?.hide() // Initially hide for auth fragments
+    }
+
+    // Make sure these are public
+    fun showActionBar(title: String = "Home") {
+        supportActionBar?.show()
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.title = title
+    }
+
+    fun hideActionBar() {
+        supportActionBar?.hide()
     }
 
     override fun onSupportNavigateUp(): Boolean {

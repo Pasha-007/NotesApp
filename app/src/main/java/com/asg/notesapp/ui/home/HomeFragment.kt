@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import com.asg.notesapp.MainActivity
 import com.asg.notesapp.databinding.FragmentHomeBinding
 
 class HomeFragment : Fragment() {
@@ -22,7 +23,7 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        (requireActivity() as MainActivity).showActionBar("Home")
         binding.textViewWelcome.text = "Hi! Welcome to Notes App"
         binding.textViewMessage.text = "Auth is working! Notes features coming soon..."
     }
