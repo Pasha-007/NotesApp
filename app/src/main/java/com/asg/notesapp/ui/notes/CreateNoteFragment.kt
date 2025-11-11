@@ -20,7 +20,6 @@ class CreateNoteFragment : Fragment() {
 
     private val viewModel: NotesViewModel by viewModel()
 
-    // Preview mode disables editing for a quick read-only look
     private var isPreviewMode = false
 
     override fun onCreateView(
@@ -34,75 +33,81 @@ class CreateNoteFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setupClickListeners()
-    }
 
-    private fun setupClickListeners() {
-        // Back
-        binding.iconBack.setOnClickListener {
+        // Back arrow in the toolbar
+        binding.toolbar.setNavigationOnClickListener {
             hideKeyboard()
             findNavController().navigateUp()
         }
 
-        // Save
-        binding.iconSave.setOnClickListener {
-            val title = binding.editTextTitle.text?.toString()?.trim().orEmpty()
-            val content = binding.editTextContent.text?.toString()?.trim().orEmpty()
-
-            var hasError = false
-            if (title.isBlank()) {
-                binding.editTextTitle.error = "Title is required"
-                hasError = true
-            } else {
-                binding.editTextTitle.error = null
+        // Toolbar menu actions
+        binding.toolbar.setOnMenuItemClickListener { item ->
+            when (item.itemId) {
+                R.id.action_preview -> {
+                    applyPreviewMode(toggle = true)
+                    true
+                }
+                R.id.action_save -> {
+                    saveNote()
+                    true
+                }
+                else -> false
             }
-
-            if (content.isBlank()) {
-                binding.editTextContent.error = "Content is required"
-                hasError = true
-            } else {
-                binding.editTextContent.error = null
-            }
-
-            if (hasError) return@setOnClickListener
-
-            // Prevent double taps
-            binding.iconSave.isEnabled = false
-            hideKeyboard()
-
-            viewModel.createNote(title, content)
-            Toast.makeText(requireContext(), "Note saved", Toast.LENGTH_SHORT).show()
-            findNavController().navigateUp()
-        }
-
-        // Preview toggle (read-only mode)
-        binding.iconVisibility.setOnClickListener {
-            isPreviewMode = !isPreviewMode
-            applyPreviewMode(isPreviewMode)
         }
     }
 
-    private fun applyPreviewMode(preview: Boolean) {
-        // Disable inputs when previewing
-        binding.editTextTitle.isEnabled = !preview
-        binding.editTextContent.isEnabled = !preview
+    private fun saveNote() {
+        val title = binding.editTextTitle.text?.toString()?.trim().orEmpty()
+        val content = binding.editTextContent.text?.toString()?.trim().orEmpty()
 
-        // Visually indicate preview
-        binding.editTextTitle.alpha = if (preview) 0.7f else 1f
-        binding.editTextContent.alpha = if (preview) 0.7f else 1f
-
-        // Hide keyboard when entering preview
-        if (preview) hideKeyboard()
-
-        // Swap icon if alt resource exists; otherwise, keep same icon
-        val altIconId = resources.getIdentifier(
-            "ic_visibility_off",
-            "drawable",
-            requireContext().packageName
-        )
-        if (altIconId != 0) {
-            binding.iconVisibility.setImageResource(if (preview) altIconId else R.drawable.ic_visibility)
+        var hasError = false
+        if (title.isBlank()) {
+            binding.editTextTitle.error = "Title is required"
+            hasError = true
+        } else {
+            binding.editTextTitle.error = null
         }
+
+        if (content.isBlank()) {
+            binding.editTextContent.error = "Content is required"
+            hasError = true
+        } else {
+            binding.editTextContent.error = null
+        }
+
+        if (hasError) return
+
+        // UX: prevent double taps on Save menu item
+        val saveItem = binding.toolbar.menu.findItem(R.id.action_save)
+        saveItem?.isEnabled = false
+
+        hideKeyboard()
+        viewModel.createNote(title, content)
+        Toast.makeText(requireContext(), "Note saved", Toast.LENGTH_SHORT).show()
+        findNavController().navigateUp()
+    }
+
+    private fun applyPreviewMode(toggle: Boolean = false) {
+        if (toggle) isPreviewMode = !isPreviewMode
+
+        // Disable/enable inputs
+        binding.editTextTitle.isEnabled = !isPreviewMode
+        binding.editTextContent.isEnabled = !isPreviewMode
+
+        // Visual hint
+        binding.editTextTitle.alpha = if (isPreviewMode) 0.7f else 1f
+        binding.editTextContent.alpha = if (isPreviewMode) 0.7f else 1f
+
+        if (isPreviewMode) hideKeyboard()
+
+        // Swap the preview icon if you have ic_visibility_off
+        val previewItem = binding.toolbar.menu.findItem(R.id.action_preview)
+        val offId = resources.getIdentifier("ic_visibility_off", "drawable", requireContext().packageName)
+        if (offId != 0) {
+            previewItem?.setIcon(if (isPreviewMode) offId else R.drawable.ic_visibility)
+        }
+        // Optional: also change the title
+        // previewItem?.title = if (isPreviewMode) "Edit" else "Preview"
     }
 
     private fun hideKeyboard() {
