@@ -5,6 +5,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
+import com.asg.notesapp.MainActivity
+import com.asg.notesapp.R
 import com.asg.notesapp.databinding.FragmentHomeBinding
 
 class HomeFragment : Fragment() {
@@ -22,9 +25,15 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        (requireActivity() as MainActivity)
+        binding.toolbar.setNavigationOnClickListener {
+            findNavController().navigateUp()
+        }
         binding.textViewWelcome.text = "Hi! Welcome to Notes App"
         binding.textViewMessage.text = "Auth is working! Notes features coming soon..."
+        binding.buttonGoToNotes.setOnClickListener {
+            findNavController().navigate(R.id.action_homeFragment_to_notesListFragment)
+        }
     }
 
     override fun onDestroyView() {
